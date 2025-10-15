@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>Users</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<div align="center">
+    <h1> Users List</h1>
+    <br/>
+    <br/>
+    <a href ="/newUser"> Add New User</a>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="usr : ${user}">
+            <td th:text="${usr.getId()}"> User ID</td>
+            <td th:text="${usr.getUsername()}"> Username</td>
+            <td th:text="${usr.getFirstName()}">First Name</td>
+            <td th:text="${usr.getLastName()}">Last Name</td>
+            <td th:text="${usr.getAge()}">Age</td>
+            <td>
+                <a th:href="@{/edit/{id} (id=${usr.getId()})}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{'/remove/' + ${usr.getId()}}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
