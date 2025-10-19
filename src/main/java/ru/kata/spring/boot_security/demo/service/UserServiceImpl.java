@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
     private RoleDao roleDao;
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
@@ -27,14 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setAge(user.getAge());
-        newUser.setRole(user.getRole());
-        userDao.addUser(newUser);
+        userDao.addUser(user);
     }
 
     @Override
@@ -77,5 +69,16 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public Set<Role> getRoles() {
         return roleDao.getRoles();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Role getRoleByName(String roleName) {
+        return roleDao.getRoleByName(roleName);
+    }
+
+    @Override
+    public Role getRoleById(Long id) {
+        return roleDao.getRoleById(id);
     }
 }

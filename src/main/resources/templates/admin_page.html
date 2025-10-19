@@ -8,21 +8,21 @@
 </head>
 <body>
 <div>
-    <a th:href="@{/user}" >User Info</a>
+    <a th:href="@{/user}">User Info</a>
 </div>
 <div>
     <a th:href="@{/logout}">Exit</a>
 </div>
 <div>
-    <form th:action="@{/newUser}" th:object="${users}" method="post">
+    <form th:action="@{/newUser}" th:object="${newuser}" method="post">
         <fieldset>
             <legend>Create New User</legend>
             <p>
-                <input  type="text" name="username" placeholder="Username" th:id="username" >
+                <input type="text" name="username" placeholder="Username" th:id="username">
 
             </p>
             <p>
-                <input  type="text" name="firstName" placeholder="First Name" th:id="firstName" >
+                <input type="text" name="firstName" placeholder="First Name" th:id="firstName">
 
             </p>
             <p>
@@ -32,13 +32,15 @@
                 <input type="number" name="age" placeholder="Age" th:id="age">
             </p>
             <p>
-                <input  type="password" placeholder="Password" name="password"  th:id="password">
+                <input type="password" placeholder="Password" name="password" th:id="password">
             </p>
             <p>
-                <label th:for="userRole">Role</label>
-                <select multiple name="roles" size="3" th:id="roles" required>
-                    <option disabled>Select Role</option>
-                    <option th:each="role:${userRole}" th:value="${role.id}" th:text="${role.name}"></option>
+                <label th:for="roles">Role</label>
+                <select multiple th:field="*{roleId}" size="3" required>
+                    <option th:each="role:${roles}"
+                            th:value="${role.id}"
+                            th:text="${role.name}">ROLE
+                    </option>
                 </select>
             </p>
         </fieldset>
@@ -76,7 +78,7 @@
                             </th:block>
                         </td>
                         <td>
-                            <form th:action="@{/edit/{id}(id=${user.id})}" method="post"
+                            <form th:action="@{/edit/{id}(id=${user.id})}" method="get"
                                   th:object="${user}">
                                 <input type="submit" value="Edit"/>
                             </form>

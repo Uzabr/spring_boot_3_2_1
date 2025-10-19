@@ -2,49 +2,55 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.kata.spring.boot_security.demo.dto.ConvertToUser;
+import ru.kata.spring.boot_security.demo.dto.UserMapper;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
 
 @Controller
 public class AdminController {
 
     private final UserService userService;
+    private ConvertToUser convertToUser;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, ConvertToUser convertToUser) {
         this.userService = userService;
+        this.convertToUser = convertToUser;
     }
 
     @GetMapping("/admin")
     public String adminPageData(ModelMap modelMap) {
         modelMap.addAttribute("users", userService.getAllUsers());
-        modelMap.addAttribute("userRole", userService.getRoles());
-        modelMap.addAttribute("newUser", new User());
+        modelMap.addAttribute("roles", userService.getRoles());
+        modelMap.addAttribute("newuser", new UserMapper());
         return "admin_page";
     }
 
     @PostMapping("/newUser")
-    public String createUser(@ModelAttribute User user) {
+    public String createUser(@ModelAttribute UserMapper userMapper) {
+        User user = convertToUser.toUser(userMapper);
         userService.addUser(user);
-        return "redirect:/admin_page";
+        return "redirect:/admin";
     }
 
-    @PostMapping("/edit")
-    public String editUser(@ModelAttribute User user) {
+    @PostMapping("/edit/{id}")
+    public String editUser(@PathVariable Long id, @ModelAttribute UserMapper userMapper) {
+        User user = convertToUser.toUser(userMapper, id);
         userService.updateUser(user);
-        return "redirect:/admin_page";
+        return "redirect:/admin";
     }
 
-    @PostMapping("/admin/{id}")
+    @GetMapping("/edit/{id}")
     public String loadUserForUpdate(ModelMap modelMap, @PathVariable Long id) {
-        User user = userService.getUserById(id);
-        modelMap.addAttribute("loadedUser", user);
+        UserMapper userMapper = convertToUser.convertToUserMapper(id);
+        modelMap.addAttribute("loadedUser", userMapper);
         modelMap.addAttribute("roleForUser", userService.getRoles());
         return "updateUser";
     }
@@ -52,6 +58,6 @@ public class AdminController {
     @PostMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/admin_page";
+        return "redirect:/admin";
     }
 }

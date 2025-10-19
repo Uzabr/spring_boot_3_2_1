@@ -10,18 +10,24 @@
     <h1> Edit User</h1>
     <br/>
     <br/>
-    <form action="#" th:object="${users}" th:action="@{/update (id=${users.getId()})}" method="post">
+    <form action="#" th:object="${loadedUser}" th:action="@{/edit/{id}(id=${loadedUser.getId()})}" method="post">
         <table border="0" cellpadding="10">
             <tr>
-                <td>User Id: </td>
-                <td><input type="text" name="id" id = "id" th:value="${users.getId()}"> </td>
+                <td>User Id:</td>
+                <td>
+                    <input type="text" th:field="*{id}"/>
+                </td>
             </tr>
             <tr>
-                <td>First Name: </td>
-                <td><input type="text" th:field="*{firstName}" ></td>
+                <td>Username:</td>
+                <td><input type="text" th:field="*{username}"></td>
             </tr>
             <tr>
-                <td>Last Name: </td>
+                <td>First Name:</td>
+                <td><input type="text" th:field="*{firstName}"></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
                 <td><input type="text" th:field="*{lastName}"></td>
             </tr>
             <tr>
@@ -29,7 +35,26 @@
                 <td><input type="text" th:field="*{age}"></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit">Edit</button> </td>
+                <td>Password</td>
+                <td><input type="text" th:field="*{password}"></td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td>
+                    <label th:for="roleForUser"></label>
+                    <select multiple th:field="*{roleId}" size="3" required>
+                        <option th:each="role:${roleForUser}"
+                                th:value="${role.id}"
+                                th:text="${role.name}">ROLE
+                        </option>
+                    </select>
+
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Edit</button>
+                </td>
             </tr>
         </table>
     </form>

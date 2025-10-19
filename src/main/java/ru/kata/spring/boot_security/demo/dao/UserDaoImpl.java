@@ -20,11 +20,9 @@ public class UserDaoImpl implements UserDao {
         this.entityManager = entityManager;
     }
 
-
-
     @Override
     public void addUser(User user) {
-    entityManager.persist(user);
+        entityManager.persist(user);
     }
 
     @Override
@@ -53,8 +51,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByUsername(String username) {
-        return entityManager.createQuery("select u from User u where u.username = :username", User.class)
-                .setParameter("username", username)
-                .getSingleResult();
+        return entityManager.createQuery("select u from User u where u.username = :username", User.class).setParameter("username", username).getSingleResult();
     }
 }

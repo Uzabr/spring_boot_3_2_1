@@ -36,36 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests().antMatchers("/login")
-                .anonymous()
-                .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/user").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .successHandler(successUserHandler);
-        http
-                .logout()
-                .permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")
-                .and()
-                .csrf().disable();
-//        http
-//                    .authorizeRequests()
-////                    .antMatchers("/login").permitAll()
-////                    .antMatchers("/").authenticated()
-//                    .antMatchers("/user").authenticated()
-//                    .antMatchers("/admin/**" ).hasAnyRole("ADMIN", "USER")
-//                    .anyRequest().authenticated()
-//                .and()
-////                .userDetailsService(userDetailsService)
-//                    .formLogin()
-//                    .successHandler(successUserHandler)
-////                    .loginPage("/login")
-//                    .permitAll()
-//                .and()
-//                    .logout().permitAll();
+        http.authorizeRequests().antMatchers("/login").anonymous().antMatchers("/admin").hasAuthority("ROLE_ADMIN").antMatchers("/user").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER").anyRequest().authenticated().and().formLogin().successHandler(successUserHandler);
+        http.logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and().csrf().disable();
     }
 
 }

@@ -8,11 +8,22 @@ import java.util.Set;
 
 public interface UserService {
     void addUser(User user);
+
     void updateUser(User user);
+
     void deleteUser(Long id);
+
     List<User> getAllUsers();
+
     User getUserById(Long id);
+
     User getUserByUsername(String username);
+
     void addRole(Set<Role> role);
+
     Set<Role> getRoles();
+
+    Role getRoleByName(String roleName);
+
+    Role getRoleById(Long id);
 }
