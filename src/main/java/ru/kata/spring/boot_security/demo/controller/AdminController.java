@@ -40,19 +40,19 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/update/{id}")
     public String editUser(@PathVariable Long id, @ModelAttribute UserMapper userMapper) {
         User user = convertToUser.toUser(userMapper, id);
         userService.updateUser(user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/load/{id}")
     public String loadUserForUpdate(ModelMap modelMap, @PathVariable Long id) {
-        UserMapper userMapper = convertToUser.convertToUserMapper(id);
-        modelMap.addAttribute("loadedUser", userMapper);
+        UserMapper userMap = convertToUser.convertToUserMapper(id);
+        modelMap.addAttribute("userMap", userMap);
         modelMap.addAttribute("roleForUser", userService.getRoles());
-        return "updateUser";
+        return "admin_page";
     }
 
     @PostMapping("/delete/{id}")
