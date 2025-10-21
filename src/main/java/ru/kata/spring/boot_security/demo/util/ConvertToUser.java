@@ -1,9 +1,11 @@
-package ru.kata.spring.boot_security.demo.dto;
+package ru.kata.spring.boot_security.demo.util;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import ru.kata.spring.boot_security.demo.dto.UserDto;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.HashSet;
@@ -13,15 +15,17 @@ import java.util.Set;
 public class ConvertToUser {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
+    private RoleService roleService;
 
-    public ConvertToUser(UserService userService, PasswordEncoder passwordEncoder) {
+    public ConvertToUser(UserService userService, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
-    public User toUser(UserMapper userMapper, Long id) {
+    public User toUser(UserDto userMapper, Long id) {
         Set<Role> roles = new HashSet<>();
-        roles.add(userService.getRoleById(userMapper.getRoleId()));
+        roles.add(roleService.getRoleById(userMapper.getRoleId()));
         userMapper.setId(id);
         User user = userService.getUserById(id);
         user.setUsername(userMapper.getUsername());
@@ -37,9 +41,9 @@ public class ConvertToUser {
         return user;
     }
 
-    public UserMapper convertToUserMapper(Long id) {
+    public UserDto convertToUserMapper(Long id) {
         User user = userService.getUserById(id);
-        UserMapper userMapper = new UserMapper();
+        UserDto userMapper = new UserDto();
         userMapper.setId(id);
         userMapper.setUsername(user.getUsername());
         userMapper.setFirstName(user.getFirstName());
@@ -48,10 +52,10 @@ public class ConvertToUser {
         return userMapper;
     }
 
-    public User toUser(UserMapper userMapper) {
+    public User toUser(UserDto userMapper) {
         Set<Role> roles = new HashSet<>();
         User user = new User();
-        roles.add(userService.getRoleById(userMapper.getRoleId()));
+        roles.add(roleService.getRoleById(userMapper.getRoleId()));
         user.setUsername(userMapper.getUsername());
         user.setFirstName(userMapper.getFirstName());
         user.setLastName(userMapper.getLastName());

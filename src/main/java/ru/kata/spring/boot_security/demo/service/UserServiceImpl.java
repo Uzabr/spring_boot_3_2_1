@@ -16,11 +16,9 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
-    private RoleDao roleDao;
 
-    public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.roleDao = roleDao;
     }
 
     @Override
@@ -58,27 +56,27 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         return userDao.getUserByUsername(username);
     }
-
-    @Override
-    @Transactional
-    public void addRole(Set<Role> role) {
-        roleDao.addRole(role);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Set<Role> getRoles() {
-        return roleDao.getRoles();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Role getRoleByName(String roleName) {
-        return roleDao.getRoleByName(roleName);
-    }
-
-    @Override
-    public Role getRoleById(Long id) {
-        return roleDao.getRoleById(id);
-    }
+//
+//    @Override
+//    @Transactional
+//    public void addRole(Set<Role> role) {
+//        roleDao.addRole(role);
+//    }
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Set<Role> getRoles() {
+//        return roleDao.getRoles();
+//    }
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Role getRoleByName(String roleName) {
+//        return roleDao.getRoleByName(roleName);
+//    }
+//
+//    @Override
+//    public Role getRoleById(Long id) {
+//        return roleDao.getRoleById(id);
+//    }
 }

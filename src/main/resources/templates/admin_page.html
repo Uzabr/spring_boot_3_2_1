@@ -14,7 +14,7 @@
     <a th:href="@{/logout}">Exit</a>
 </div>
 <div>
-    <form th:action="@{/newUser}" th:object="${newuser}" method="post">
+    <form th:action="@{/admin/newUser}" th:object="${newuser}" method="post">
         <fieldset>
             <legend>Create New User</legend>
             <p>
@@ -78,13 +78,13 @@
                             </th:block>
                         </td>
                         <td>
-                            <form th:action="@{/edit/{id}(id=${user.id})}" method="get"
+                            <form th:action="@{/admin/edit/{id}(id=${user.id})}" method="get"
                                   th:object="${user}">
                                 <input type="submit" value="Edit"/>
                             </form>
                         </td>
                         <td>
-                            <form th:action="@{/delete/{id}(id=${user.id})}" method="post"
+                            <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post"
                                   th:object="${user}">
                                 <input type="submit" value="Delete">
                             </form>

@@ -1,7 +1,7 @@
 package ru.kata.spring.boot_security.demo.dto;
 
 
-public class UserMapper {
+public class UserDto {
     private Long id;
     private String username;
     private String firstName;

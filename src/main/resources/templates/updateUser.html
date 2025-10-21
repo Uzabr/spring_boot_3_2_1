@@ -10,7 +10,7 @@
     <h1> Edit User</h1>
     <br/>
     <br/>
-    <form action="#" th:object="${loadedUser}" th:action="@{/edit/{id}(id=${loadedUser.getId()})}" method="post">
+    <form action="#" th:object="${loadedUser}" th:action="@{/admin/edit/{id}(id=${loadedUser.getId()})}" method="post">
         <table border="0" cellpadding="10">
             <tr>
                 <td>User Id:</td>

@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.configs.security_config;
+package ru.kata.spring.boot_security.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,8 +36,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login").anonymous().antMatchers("/admin").hasAuthority("ROLE_ADMIN").antMatchers("/user").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER").anyRequest().authenticated().and().formLogin().successHandler(successUserHandler);
-        http.logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and().csrf().disable();
+        http.authorizeRequests().antMatchers("/login").anonymous()
+                .antMatchers("/admin")
+                .hasAuthority("ROLE_ADMIN")
+                .antMatchers("/user")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_USER").anyRequest()
+                .authenticated()
+                .and()
+                .formLogin().successHandler(successUserHandler);
+
+        http.logout().permitAll()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login").and().csrf().disable();
     }
 
 }

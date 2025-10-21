@@ -19,11 +19,11 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
-    void addRole(Set<Role> role);
-
-    Set<Role> getRoles();
-
-    Role getRoleByName(String roleName);
-
-    Role getRoleById(Long id);
+//    void addRole(Set<Role> role);
+//
+//    Set<Role> getRoles();
+//
+//    Role getRoleByName(String roleName);
+//
+//    Role getRoleById(Long id);
 }
