@@ -223,8 +223,7 @@
                                                                 data-bs-dismiss="modal"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <!-- Форма для редактирования пользователя -->
-                                                        <form th:action="@{/update/{id}(id=${user.id})}" method="post">
+                                                        <form th:action="@{/admin/update/{id}(id=${user.id})}" method="post">
                                                             <input type="hidden" name="_method" value="put">
 
                                                             <div class="form-floating mb-3">
@@ -298,7 +297,6 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <!-- Кнопка Delete - открывает модальное окно -->
                                         <button type="button"
                                                 class="btn btn-danger btn-sm"
                                                 data-bs-toggle="modal"
@@ -306,7 +304,6 @@
                                             Delete
                                         </button>
 
-                                        <!-- Модальное окно удаления -->
                                         <div th:id="'deleteModal_' + ${user.id}" class="modal fade" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -317,7 +314,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <p>Are you sure you want to delete user <strong th:text="${user.username}"></strong>?</p>
-                                                        <form th:action="@{/delete/{id}(id=${user.id})}" method="post">
+                                                        <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post">
                                                             <input type="hidden" name="_method" value="delete">
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary btn-sm"
@@ -346,7 +343,7 @@
                         <div class="container-fluid">
                             <div class="row justify-content-center" style="margin-right: 38px;">
                                 <div class="col-md-12 p-4 bg-white border">
-                                    <form th:action="@{/newUser}" method="post" th:object="${newuser}"
+                                    <form th:action="@{/admin/newUser}" method="post" th:object="${newuser}"
                                           class="w-100 mx-auto" style="max-width: 400px; text-align: center">
 
                                         <div class="mb-3">

@@ -18,12 +18,4 @@ public interface UserService {
     User getUserById(Long id);
 
     User getUserByUsername(String username);
-
-    void addRole(Set<Role> role);
-
-    Set<Role> getRoles();
-
-    Role getRoleByName(String roleName);
-
-    Role getRoleById(Long id);
 }
